@@ -8,15 +8,20 @@
 #include <Gyver433.h>
 
 #include "base.h"
+#include "controller\ThermometerController.h"
+#include "view\ThermometerView.h"
 
 Gyver433_TX<12> tx;    // указали пин
 Gyver433_RX<2, 20> rx; // указали пин и размер буфера
 
-uint32_t time;
-
 GButton onBtn(BTN_ON_PIN);
 GButton offBtn(BTN_OFF_PIN);
 
+ThermometerController therm(0x02);
+ThermometerConsoleView therm_view(therm.getModel());
+
+
+uint32_t time;
 unsigned long startTime;
 bool isBtnClicked = false;
 bool ledStatus = false;
@@ -38,7 +43,6 @@ void setupTransmitter()
     startTime = millis();
     attachInterrupt(0, isr, CHANGE);
     Serial.println("Transmitter inited.");
-
 }
 
 void isr()
@@ -102,18 +106,17 @@ void transmitterLoop()
     // }
 
     if (rx.gotData())
-    {                        // если больше 0
-        TermometerSensorData dataAnswer; // "буферная" структура
-        if (rx.buffer[0] == 0x02){
+    { // если больше 0
+
+        if (therm.gotPackage(rx.buffer))
+        {
+            TermometerSensorData dataAnswer;
             if (rx.readData(dataAnswer))
-            { // переписываем данные в неё
-                // если данные подходят - выводим
-                Serial.println(dataAnswer.messageId);
-                Serial.println(dataAnswer.radioNum);
-                Serial.println(dataAnswer.temperature);
-                Serial.println(dataAnswer.humidity);
-                Serial.write(rx.buffer, rx.size);
-                Serial.println();
+            { 
+
+                therm.updateData(dataAnswer);
+                Serial.println(dataAnswer.toString());
+                therm_view.updateView();
 
                 // if ((dataAnswer.messageId == data.messageId) && (dataAnswer.message == *RECEIVED_MESSAGE))
                 // {
@@ -124,8 +127,11 @@ void transmitterLoop()
             {
                 Serial.println("Wrong data");
             }
-        } else {
-            Serial.println("Unknown device signature.");
+        }
+        else
+        {
+            Serial.print("Unknown device signature: ");
+            Serial.println(((uint16_t)rx.buffer[0] << 8) | rx.buffer[1]);
         }
     }
 }
