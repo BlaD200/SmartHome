@@ -16,10 +16,10 @@ public:
     ThermometerController(uint8_t module_addr) : _model(module_addr){};
     ~ThermometerController(){};
 
-    bool gotPackage(byte data[])
+    bool gotPackage(uint8_t data[])
     {
-        // return (((uint16_t)data[0] << 8) | data[1]) == _model.addr();
-        return data[0] == _model.addr();
+        return (((uint16_t)data[1] << 8) | data[0]) == _model.addr();
+        // return data[0] == _model.addr();
     }
 
     void updateData(TermometerSensorData& data)

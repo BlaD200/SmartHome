@@ -4,13 +4,13 @@
 
 struct TermometerSensorData
 {
-    uint8_t radioNum;
-    uint8_t messageId;
+    uint16_t radioNum;
+    uint16_t messageId;
     float temperature;
     float humidity;
 
     TermometerSensorData(){}
-    TermometerSensorData(uint8_t radioNum, uint8_t messageId, float temperature, float humidity) 
+    TermometerSensorData(uint16_t radioNum, uint16_t messageId, float temperature, float humidity) 
         :radioNum(radioNum), messageId(messageId), temperature(temperature), humidity(humidity)
     {
     };

@@ -23,7 +23,7 @@ protected:
     }
 
 public:
-    ThermometerConsoleView(ThermometerModel model): BaseView(model){};
+    ThermometerConsoleView(const ThermometerModel& model): BaseView(model){};
     ~ThermometerConsoleView(){};
 };
 

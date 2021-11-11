@@ -19,7 +19,7 @@
 DHT dht(DHT_DATA, DHT11);
 Gyver433_TX<RADIO_DATA> tx;
 
-uint8_t message_id = 0;
+uint16_t message_id = 0;
 float h, t = 0;
 
 void setup()

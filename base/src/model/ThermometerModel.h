@@ -5,7 +5,7 @@
 class ThermometerModel
 {
 private:
-    const uint8_t _module_addr;
+    const uint16_t _module_addr;
     float _temperature;
     float _humidity;
 
@@ -15,7 +15,7 @@ public:
     ThermometerModel(uint16_t moduleAddr, float temperature, float humidity):
         _module_addr(moduleAddr), _temperature(temperature), _humidity(humidity){};
 
-    uint8_t addr() const { return _module_addr; }
+    uint16_t addr() const { return _module_addr; }
     
     float getTemperature() const { return _temperature; }
     void setTemperature(float t) {
