@@ -1,52 +1,33 @@
 #define G433_SLOW 
 
 #define DHT_DATA PB3
+#define DHT_TYPE DHT11
 #define DHT_POWER PB1
+
 #define RADIO_DATA PB0
+#define RADIO_NUM 0x02
 #define RADIO_POWER PB4
 
-#define RADIO_NUM 0x02
+#include "model/ThermometerModel.h"
+#include "view/ThermometerView.h"
 
+ThermometerModel model(DHT_DATA, DHT_TYPE, DHT_POWER);
 
-#include "DHT.h"
-#include <util/delay.h>
-#include "Gyver433.h"
-#include "GyverPower.h"
-
-#include "data.h"
-
-
-DHT dht(DHT_DATA, DHT11);
-Gyver433_TX<RADIO_DATA> tx;
-
-uint16_t message_id = 0;
-float h, t = 0;
+using Tx = Gyver433_TX<RADIO_DATA>;
+Tx tx;
+ThermometerView<Tx> view(tx, RADIO_NUM, RADIO_POWER);
 
 void setup()
 {
   pinMode(DHT_POWER, OUTPUT);
   pinMode(RADIO_POWER, OUTPUT);
-
-  dht.begin();
-
-  // глубокий сон
-  power.setSleepMode(POWERDOWN_SLEEP); // Самый глубокий сон
-  power.autoCalibrate();
 }
 
-void loop() // Main program loop
+void loop()
 {
-  digitalWrite(DHT_POWER, HIGH);
-  power.sleep(SLEEP_2048MS);
-  h = dht.readHumidity(true);
-  t = dht.readTemperature();
-  digitalWrite(DHT_POWER, LOW);
+  model.readData();
 
-  digitalWrite(RADIO_POWER, HIGH);
-  _delay_ms(1);
-  TermometerSensorData data(RADIO_NUM, message_id++, t, h);
-  tx.sendData(data);
-  digitalWrite(RADIO_POWER, LOW);
+  view.sendData(model.getTemperature(), model.getHumidity());
 
   power.sleep(SLEEP_4096MS);
 }
