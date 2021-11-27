@@ -1,6 +1,11 @@
 #ifndef THERMOMETER_MODEL
 #define THERMOMETER_MODEL
 
+struct TemperatureParam{};
+struct HumidityParam{};
+
+using Temperature = NamedType<TemperatureParam, float>;
+using Humidity = NamedType<HumidityParam, float>;
 
 class ThermometerModel
 {
@@ -10,9 +15,7 @@ private:
     float _humidity;
 
 public:
-    ThermometerModel(uint16_t moduleAddr):
-        _module_addr(moduleAddr), _temperature(-1), _humidity(-1){};
-    ThermometerModel(uint16_t moduleAddr, float temperature, float humidity):
+    ThermometerModel(uint16_t moduleAddr, Temperature temperature = Temperature(-1), Humidity humidity = Humidity(-1)):
         _module_addr(moduleAddr), _temperature(temperature), _humidity(humidity){};
 
     uint16_t addr() const { return _module_addr; }
