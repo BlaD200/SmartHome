@@ -1,6 +1,7 @@
 #ifndef THERMOMETER_MODEL
 #define THERMOMETER_MODEL
 
+#include "../../utils/NamedType.h"
 
 class ThermometerModel
 {
@@ -12,8 +13,8 @@ private:
 public:
     ThermometerModel(uint16_t moduleAddr):
         _module_addr(moduleAddr), _temperature(-1), _humidity(-1){};
-    ThermometerModel(uint16_t moduleAddr, float temperature, float humidity):
-        _module_addr(moduleAddr), _temperature(temperature), _humidity(humidity){};
+    ThermometerModel(uint16_t moduleAddr, Temperature temperature, Humidity humidity):
+        _module_addr(moduleAddr), _temperature(temperature.get()), _humidity(humidity.get()){};
 
     uint16_t addr() const { return _module_addr; }
     
