@@ -1,3 +1,6 @@
+#ifndef NAMEDTYPE
+#define NAMEDTYPE
+
 template <typename T, typename Parameter>
 class NamedType
 {
@@ -11,3 +14,13 @@ private:
 
 using Temperature = NamedType<double, struct TemperatureParameter>;
 using Humidity    = NamedType<double, struct HumidityParameter   >;
+
+using DHTData  = NamedType<uint8_t, struct DHTDataParameter >;
+using DHTType  = NamedType<uint8_t, struct DHTTypeParameter >;
+using DHTPower = NamedType<uint8_t, struct DHTPowerParameter>;
+
+using RadioNum   = NamedType<int8_t, struct RadioNumParameter  >;
+using RadioPower = NamedType<int8_t, struct RadioPowerParameter>;
+using MessageId  = NamedType<uint16_t, struct MessageIdParameter>;
+
+#endif
