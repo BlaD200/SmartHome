@@ -1,7 +1,7 @@
 #ifndef THERMOMETER_MODEL
 #define THERMOMETER_MODEL
 
-#include "../../utils/NamedType.h"
+#include "NamedType.h"
 
 class ThermometerModel
 {

@@ -5,7 +5,7 @@
 #include "Gyver433.h"
 #include "PowerHighLow.h"
 #include "data.h"
-#include "../../utils/NamedType.h"
+#include "NamedType.h"
 
 template<typename Tx>
 class ThermometerView 

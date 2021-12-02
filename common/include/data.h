@@ -1,6 +1,7 @@
 #ifndef TERMOMETER_SENSOR_DATA_H
 #define TERMOMETER_SENSOR_DATA_H
 
+#include "NamedType.h"
 
 struct TermometerSensorData
 {
@@ -10,7 +11,7 @@ struct TermometerSensorData
     float humidity;
 
     TermometerSensorData(){}
-    TermometerSensorData(RadioNum(radioNum), MessageId(messageId), Temperature temperature, Humidity humidity) 
+    TermometerSensorData(RadioNum radioNum, MessageId messageId, Temperature temperature, Humidity humidity) 
         :radioNum(radioNum.get()), messageId(messageId.get()), temperature(temperature.get()), humidity(humidity.get())
     {
     };

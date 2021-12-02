@@ -4,7 +4,7 @@
 #include "DHT.h"
 #include "GyverPower.h"
 #include "PowerHighLow.h"
-#include "../../utils/NamedType.h"
+#include "NamedType.h"
 
 class ThermometerModel 
 {
