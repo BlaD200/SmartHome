@@ -1,45 +1,30 @@
 #ifndef THERMOMETER_MODEL
 #define THERMOMETER_MODEL
 
-#include "DHT.h"
-#include "GyverPower.h"
-#include "PowerHighLow.h"
+
+
+
 #include "NamedType.h"
 
 class ThermometerModel 
 {
 private:
-    DHT _dht;
+    
     float _temperature;
     float _humidity;
-    uint8_t _dhtPower;
 
 public:
-    ThermometerModel(DHTData dhtData, DHTType dhtType, DHTPower dhtPower) 
-        : _dht(dhtData.get(), dhtType.get()), _dhtPower(dhtPower.get()) 
-    {
-        _dht.begin();
+    ThermometerModel(){}
+    ThermometerModel(Temperature temperature, Humidity humidity) 
+    : _temperature(temperature.get()), _humidity(humidity.get()){}
+    
 
-        power.setSleepMode(POWERDOWN_SLEEP);
-        power.autoCalibrate();
-    }
-
-    void readData() 
-    {
-        PowerHighLow powerHighLow(_dhtPower);
-
-        power.sleep(SLEEP_2048MS);
-
-        _humidity = _dht.readHumidity(true);
-        _temperature = _dht.readTemperature();
-    }
-
-    float getTemperature() 
+    float getTemperature() const
     {
         return _temperature;
     }
 
-    float getHumidity() 
+    float getHumidity() const
     {
         return _humidity;
     }

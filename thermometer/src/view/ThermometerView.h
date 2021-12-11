@@ -24,7 +24,7 @@ public:
     {
         PowerHighLow powerHighLow(_radioPower);
         
-        _delay_ms(1);
+        _delay_ms(2);
 
         TermometerSensorData data(RadioNum(_radioNum), MessageId(_message_id++), temperature, humidity);
         _tx.sendData(data);
