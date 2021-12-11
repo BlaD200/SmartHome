@@ -13,7 +13,7 @@ class ThermometerView
 private:
     Tx& _tx;
     uint16_t _message_id = 0;
-    int8_t _radioNum;
+    int16_t _radioNum;
     int8_t _radioPower;
 
 public:

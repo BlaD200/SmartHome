@@ -27,7 +27,7 @@ bool isBtnClicked = false;
 bool ledStatus = false;
 bool receivedAnswer = true;
 
-const uint8_t RADIO_NUM = 11;
+const uint16_t RADIO_NUM = 11;
 
 const uint8_t ON_MESSAGE[] = {0x55};  // binary 0101 0101
 const uint8_t OFF_MESSAGE[] = {0x96}; // binary 1001 0110
