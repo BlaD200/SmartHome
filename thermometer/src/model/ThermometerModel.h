@@ -4,6 +4,7 @@
 #include "DHT.h"
 #include "GyverPower.h"
 #include "PowerHighLow.h"
+#include "NamedType.h"
 
 class ThermometerModel 
 {
@@ -14,8 +15,8 @@ private:
     uint8_t _dhtPower;
 
 public:
-    ThermometerModel(uint8_t dhtData, uint8_t dhtType, uint8_t dhtPower) 
-        : _dht(dhtData, dhtType), _dhtPower(dhtPower) 
+    ThermometerModel(DHTData dhtData, DHTType dhtType, DHTPower dhtPower) 
+        : _dht(dhtData.get(), dhtType.get()), _dhtPower(dhtPower.get()) 
     {
         _dht.begin();
 

@@ -11,11 +11,11 @@
 #include "model/ThermometerModel.h"
 #include "view/ThermometerView.h"
 
-ThermometerModel model(DHT_DATA, DHT_TYPE, DHT_POWER);
+ThermometerModel model(DHTData(DHT_DATA), DHTType(DHT_TYPE), DHTPower(DHT_POWER));
 
 using Tx = Gyver433_TX<RADIO_DATA>;
 Tx tx;
-ThermometerView<Tx> view(tx, RADIO_NUM, RADIO_POWER);
+ThermometerView<Tx> view(tx, RadioNum(RADIO_NUM), RadioPower(RADIO_POWER));
 
 void setup()
 {
@@ -27,7 +27,7 @@ void loop()
 {
   model.readData();
 
-  view.sendData(model.getTemperature(), model.getHumidity());
+  view.sendData(Temperature(model.getTemperature()), Humidity(model.getHumidity()));
 
   power.sleep(SLEEP_4096MS);
 }

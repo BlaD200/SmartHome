@@ -5,6 +5,7 @@
 #include "Gyver433.h"
 #include "PowerHighLow.h"
 #include "data.h"
+#include "NamedType.h"
 
 template<typename Tx>
 class ThermometerView 
@@ -16,16 +17,16 @@ private:
     int8_t _radioPower;
 
 public:
-    ThermometerView(Tx& tx, int8_t radioNum, int8_t radioPower) 
-        : _tx(tx), _radioNum(radioNum), _radioPower(radioPower) {}
+    ThermometerView(Tx& tx, RadioNum radioNum, RadioPower radioPower) 
+        : _tx(tx), _radioNum(radioNum.get()), _radioPower(radioPower.get()) {}
 
-    void sendData(float temperature, float humidity) 
+    void sendData(Temperature temperature, Humidity humidity) 
     {
         PowerHighLow powerHighLow(_radioPower);
         
         _delay_ms(1);
 
-        TermometerSensorData data(_radioNum, _message_id++, temperature, humidity);
+        TermometerSensorData data(RadioNum(_radioNum), MessageId(_message_id++), temperature, humidity);
         _tx.sendData(data);
     }
 };
