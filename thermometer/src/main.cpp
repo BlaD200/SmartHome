@@ -1,4 +1,4 @@
-#define G433_SLOW
+// #define G433_SLOW
 
 #define DHT_DATA PB3
 #define DHT_TYPE DHT11
@@ -8,7 +8,7 @@
 #define RADIO_NUM 0x02
 #define RADIO_POWER PB4
 
-#include "controller/ThermometetController.h"
+#include "controller/ThermometerController.h"
 #include "view/ThermometerView.h"
 
 ThermometerController controller(DHTData(DHT_DATA), DHTType(DHT_TYPE), DHTPower(DHT_POWER));

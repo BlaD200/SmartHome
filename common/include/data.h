@@ -10,11 +10,9 @@ struct TermometerSensorData
     float temperature;
     float humidity;
 
-    TermometerSensorData(){}
-    TermometerSensorData(RadioNum radioNum, MessageId messageId, Temperature temperature, Humidity humidity) 
-        :radioNum(radioNum.get()), messageId(messageId.get()), temperature(temperature.get()), humidity(humidity.get())
-    {
-    };
+    TermometerSensorData() {}
+    TermometerSensorData(RadioNum radioNum, MessageId messageId, Temperature temperature, Humidity humidity)
+        : radioNum(radioNum.get()), messageId(messageId.get()), temperature(temperature.get()), humidity(humidity.get()){};
 
     String toString()
     {
@@ -23,6 +21,21 @@ struct TermometerSensorData
                "Temperature: " + String(temperature) + '\n' +
                "Humidity:    " + String(humidity);
     };
+};
+
+struct MotionSensorData
+{
+    uint16_t radioNum;
+    uint16_t messageId;
+
+    MotionSensorData(){}
+    MotionSensorData(RadioNum radioNum, MessageId messageId)
+        : radioNum(radioNum.get()), messageId(messageId.get()){};
+    
+    String toString(){
+        return "RADIO ID:    " + String(radioNum) + '\n' +
+               "Message id:  " + String(messageId);
+    }
 };
 
 #endif // TERMOMETER_SENSOR_DATA_H

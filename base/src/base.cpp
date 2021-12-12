@@ -2,7 +2,7 @@
 #define BTN_OFF_PIN 4
 
 //#define G433_SPEED 1000   // скорость 100-10000 бит/с, по умолч. 2000 бит/с
-#define G433_SLOW // отправляю раз в секунду на SYN480R
+// #define G433_SLOW // отправляю раз в секунду на SYN480R
 
 #include "GyverButton.h"
 #include <Gyver433.h>
