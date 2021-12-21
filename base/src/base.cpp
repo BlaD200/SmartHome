@@ -11,14 +11,15 @@
 Gyver433_TX<12> tx;
 Gyver433_RX<2, 20> rx;
 
-GButton onBtn(BTN_ON_PIN);
-GButton offBtn(BTN_OFF_PIN);
-
 ThermometerController therm(0x02);
 ThermometerConsoleView therm_view(therm.getModel());
 
 
 uint32_t time;
+uint32_t flash_time;
+float temp;
+float hum;
+
 unsigned long startTime;
 bool isBtnClicked = false;
 bool ledStatus = false;
@@ -36,6 +37,8 @@ void setupTransmitter()
 {
     // initialize wireless driver
     Serial.begin(9600);
+
+    ESPserial.begin(115200);
     // transmitterDriver.init();
     startTime = millis();
     attachInterrupt(0, isr, CHANGE);
@@ -49,20 +52,21 @@ void isr()
 
 void transmitterLoop()
 {
-    onBtn.tick();
-    offBtn.tick();
+    // if (millis() - flash_time > 1000){
+    //     flash_time = millis();
+    //     ESPserial.write("5.0|28.9;");
+    // }
+    // if (Serial.available()){
+    //     char str[30];
+    //     ESPserial.write(Serial.readBytesUntil(';', str, 30));
+    //     ESPserial.readBytesUntil()
+    // }
 
-    if (onBtn.isClick())
-    {
-        Serial.println("ON");
-        ledStatus = true;
-        isBtnClicked = true;
-    }
-    if (offBtn.isClick())
-    {
-        Serial.println("OFF");
-        ledStatus = false;
-        isBtnClicked = true;
+    if (ESPserial.available()) {
+        char str[30];
+        int len = ESPserial.readBytesUntil(';', str, 30);
+        str[len] = 0;
+        Serial.write(str);
     }
 
     if (rx.gotData())

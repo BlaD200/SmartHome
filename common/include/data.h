@@ -38,4 +38,21 @@ struct MotionSensorData
     }
 };
 
+
+struct AlarmData
+{
+    uint16_t radioNum;
+    uint16_t messageId;
+
+    AlarmData(){}
+    AlarmData(RadioNum radioNum, MessageId messageId)
+        : radioNum(radioNum.get()), messageId(messageId.get()){};
+    
+    String toString(){
+        return "RADIO ID:    " + String(radioNum) + '\n' +
+               "Message id:  " + String(messageId);
+    }
+};
+
+
 #endif // TERMOMETER_SENSOR_DATA_H

@@ -17,6 +17,8 @@ using Tx = Gyver433_TX<RADIO_DATA>;
 Tx tx;
 ThermometerView<Tx> view(tx, RadioNum(RADIO_NUM), RadioPower(RADIO_POWER));
 
+unsigned long time;
+
 void setup()
 {
     pinMode(DHT_POWER, OUTPUT);
@@ -25,12 +27,16 @@ void setup()
 
 void loop()
 {
-    controller.readData();
+    if (millis() - time > 4000)
+    {
+        controller.readData();
 
-    view.sendData(
-        Temperature(controller.getModel().getTemperature()),
-        Humidity(controller.getModel().getHumidity())
-    );
+        view.sendData(
+            Temperature(controller.getModel().getTemperature()),
+            Humidity(controller.getModel().getHumidity()));
 
-    power.sleep(SLEEP_4096MS);
+        time = millis();
+    }
+
+    // power.sleep(SLEEP_4096MS);
 }

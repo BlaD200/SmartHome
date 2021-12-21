@@ -2,7 +2,7 @@
 #define THERMOMETER_CONTROLLER_H
 
 #include "DHT.h"
-#include "GyverPower.h"
+// #include "GyverPower.h"
 #include "NamedType.h"
 #include "PowerHighLow.h"
 #include "model/ThermometerModel.h"
@@ -19,15 +19,15 @@ public:
     {
         _dht.begin();
 
-        power.setSleepMode(POWERDOWN_SLEEP);
-        power.autoCalibrate();
+        // power.setSleepMode(POWERDOWN_SLEEP);
+        // power.autoCalibrate();
     };
 
     void readData()
     {
         PowerHighLow powerHighLow(_dhtPower);
 
-        power.sleep(SLEEP_2048MS);
+        // power.sleep(SLEEP_2048MS);
 
         Humidity humidity = Humidity(_dht.readHumidity(true));
         Temperature temperature = Temperature(_dht.readTemperature());
