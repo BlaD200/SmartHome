@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="temperature"
+            type="LiveData&lt;Float>" />
+
+        <variable
+            name="humidity"
+            type="LiveData&lt;Float>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainFragment">
+
+        <TextView
+            android:id="@+id/labelError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#FF0000"
+            android:textSize="16sp"
+            android:visibility="gone"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent"
+            tools:text="Unexpected error has occurred" />
+
+        <TextView
+            android:id="@+id/labelTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/temperature"
+            android:textSize="34sp"
+            bind:layout_constraintBottom_toTopOf="@+id/valueTemperature"
+            bind:layout_constraintEnd_toEndOf="@+id/valueTemperature"
+            bind:layout_constraintStart_toStartOf="@+id/valueTemperature" />
+
+        <TextView
+            android:id="@+id/valueTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{temperature + "°C"}'
+            android:textColor="#FF0033"
+            android:textSize="40sp"
+            bind:layout_constraintBottom_toTopOf="@+id/valueHumidity"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintHorizontal_bias="0.5"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/labelHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/humidity"
+            android:textSize="34sp"
+            bind:layout_constraintBottom_toTopOf="@+id/valueHumidity"
+            bind:layout_constraintEnd_toEndOf="@+id/valueHumidity"
+            bind:layout_constraintStart_toStartOf="@+id/valueHumidity" />
+
+        <TextView
+            android:id="@+id/valueHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{humidity + "%"}'
+            android:textColor="#425CFF"
+            android:textSize="40sp"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintHorizontal_bias="0.5"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/valueTemperature"
+            tools:text="10" />
+
+        <Button
+            android:id="@+id/btnAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:enabled="false"
+            android:text="@string/alert"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

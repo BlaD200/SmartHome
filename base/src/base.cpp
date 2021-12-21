@@ -1,17 +1,15 @@
-//#define G433_SPEED 1000   // скорость 100-10000 бит/с, по умолч. 2000 бит/с
-// #define G433_SLOW // отправляю раз в секунду на SYN480R
+#define BTN_ON_PIN 3
+#define BTN_OFF_PIN 4
 
+#include "GyverButton.h"
 #include <Gyver433.h>
 
 #include "base.h"
 #include "controller\ThermometerController.h"
 #include "view\ThermometerView.h"
 
-#include <SoftwareSerial.h>
-SoftwareSerial ESPserial(4,3); // RX | TX
-
-Gyver433_TX<12> tx;    // указали пин
-Gyver433_RX<2, 20> rx; // указали пин и размер буфера
+Gyver433_TX<12> tx;
+Gyver433_RX<2, 20> rx;
 
 ThermometerController therm(0x02);
 ThermometerConsoleView therm_view(therm.getModel());
@@ -71,60 +69,16 @@ void transmitterLoop()
         Serial.write(str);
     }
 
-    // if (isBtnClicked || !receivedAnswer)
-    // {
-    //     digitalWrite(LED_BUILTIN, ledStatus);
-
-    //     if (millis() - startTime > 1000)
-    //     {
-    //         Serial.println("sending...");
-
-    //         data.messageId++;          // тут счётчик
-    //         data.radioNum = RADIO_NUM; // случайное число
-
-    //         if (ledStatus)
-    //         {
-    //             data.message = *ON_MESSAGE;
-    //         }
-    //         else
-    //         {
-    //             data.message = *OFF_MESSAGE;
-    //         }
-
-    //         // detachInterrupt(0);
-    //         tx.sendData(data);
-    //         // attachInterrupt(0, isr, CHANGE);
-
-    //         Serial.println("Transmitted:");
-    //         Serial.println(data.messageId);
-    //         Serial.println(data.radioNum);
-    //         Serial.println(data.message);
-    //         Serial.println();
-
-    //         startTime = millis();
-    //     }
-
-    //     receivedAnswer = false;
-    //     isBtnClicked = false;
-    // }
-
     if (rx.gotData())
-    { // если больше 0
-
+    {
         if (therm.gotPackage(rx.buffer))
         {
             TermometerSensorData dataAnswer;
             if (rx.readData(dataAnswer))
             { 
-
                 therm.updateData(dataAnswer);
                 Serial.println(dataAnswer.toString());
                 therm_view.updateView();
-
-                // if ((dataAnswer.messageId == data.messageId) && (dataAnswer.message == *RECEIVED_MESSAGE))
-                // {
-                //     receivedAnswer = true;
-                // }
             }
             else
             {
