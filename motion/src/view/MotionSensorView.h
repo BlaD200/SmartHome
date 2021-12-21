@@ -2,6 +2,7 @@
 #define MOTION_SENSOR_VIEW_H
 
 #include "data.h"
+#include "PowerHighLow.h"
 
 template<typename Tx>
 class MotionSensorView
@@ -10,22 +11,21 @@ private:
     Tx &_tx;
     uint16_t _message_id = 0;
     RadioNum _radioNum;
-    RadioPower _radioPower;
+    // RadioPower _radioPower;
     uint32_t _time;
 
 public:
-    MotionSensorView(Tx &tx, RadioNum radioNum, RadioPower radioPower)
-        : _tx(tx), _radioNum(radioNum), _radioPower(radioPower) {}
+    MotionSensorView(Tx &tx, RadioNum radioNum/* , RadioPower radioPower */)
+        : _tx(tx), _radioNum(radioNum)/* , _radioPower(radioPower) */ {}
 
     void sendData()
     {
-        
-        volatile MotionSensorData data(RadioNum(_radioNum), MessageId(_message_id++));      // Буфер
+        MotionSensorData data(RadioNum(_radioNum), MessageId(_message_id++));      // Буфер
 
-        PowerHighLow(_radioPower.get());
-        _delay_ms(2);                  // Немного ждем
+        /* PowerHighLow(_radioPower.get()); */
+        // _delay_ms(2);                  // Немного ждем
         _tx.sendData(data);             // Отправляем пакет
-        _delay_ms(2);
+        // _delay_ms(2);
     }
 };
 
