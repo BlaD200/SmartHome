@@ -13,7 +13,7 @@ private:
     uint16_t _last_message_id;
 
 public:
-    ThermometerController(uint8_t module_addr) : _model(module_addr){};
+    ThermometerController(uint16_t module_addr) : _model(module_addr){};
     ~ThermometerController(){};
 
     bool gotPackage(uint8_t data[])

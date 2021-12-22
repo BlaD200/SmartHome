@@ -27,4 +27,20 @@ public:
     ~ThermometerConsoleView(){};
 };
 
+class ThermometerAndroidView : public BaseView<ThermometerModel>
+{
+private:
+    SoftwareSerial& _serial;
+
+protected:
+    void _updateView() override
+    {
+        _serial.println(String(_model.getTemperature()) + "|" + String(_model.getHumidity()) + ";");
+    }
+
+public:
+    ThermometerAndroidView(const ThermometerModel& model, SoftwareSerial& serial): BaseView(model), _serial(serial){};
+    ~ThermometerAndroidView(){};
+};
+
 #endif // THERMOMETER_VIEW
