@@ -6,6 +6,7 @@
 #include "NamedType.h"
 #include "PowerHighLow.h"
 #include "model/ThermometerModel.h"
+#include <util/delay.h>
 
 class ThermometerController
 {
@@ -28,6 +29,7 @@ public:
         PowerHighLow powerHighLow(_dhtPower);
 
         // power.sleep(SLEEP_2048MS);
+        _delay_ms(2500);
 
         Humidity humidity = Humidity(_dht.readHumidity(true));
         Temperature temperature = Temperature(_dht.readTemperature());
